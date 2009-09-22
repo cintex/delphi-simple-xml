@@ -1,0 +1,24 @@
+All data human readable and exentensible
+
+
+
+PseudoXML Class
+
+Node
+	TagName
+	TextValue (read only, contains all text within the node )
+	attributes ( a stringList of all attributes )
+	Children ( a stringList of all child nodes )
+	NextSibling ( pointer to next node, if part of a list. can be nil)
+	Parent (pointer to parent node )
+	FirstChild
+	Create( text )
+	
+	addChild(Node)
+	
+	ToString (converts the whole thing into a string)
+	LoadFromFile
+	SaveToFile
+
+
+Special characters:  <,>,/,"

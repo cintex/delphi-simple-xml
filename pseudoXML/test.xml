@@ -1,0 +1,12 @@
+<xml
+ a="b"
+ c="d"
+>
+	<test2
+	 c="d"
+	>
+		<test3>
+			hello there	
+		</test3>
+	</test2>
+</xml>

@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:xdb="http://www.borland.com/schemas/delphi/10.0/XMLDataBinding">
+  <xs:element name="xml" type="xmlType"/>
+  <xs:complexType name="xmlType"><xs:annotation>
+      <xs:appinfo xdb:docElement="xml"/>
+    </xs:annotation>
+    <xs:sequence>
+      <xs:element name="test2" type="test2Type"/>
+    </xs:sequence>
+    <xs:attribute name="a" type="xs:string"/>
+    <xs:attribute name="c" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="test2Type">
+    <xs:sequence>
+      <xs:element name="test3" type="xs:string"/>
+    </xs:sequence>
+    <xs:attribute name="c" type="xs:string"/>
+  </xs:complexType>
+</xs:schema>
