@@ -1,12 +1,9 @@
 unit pseudoXML;
 
 //TODO: support for CDATA markers
-//TODO: potential problems with name that have a dot in them
+//TODO: potential problems with names that have a dot in them
 //TODO: figure out a way to thoroughly test this.
 //TODO: support for comment tags
-
-
-//test adding a comment to test SVN diff
 
 interface
 
