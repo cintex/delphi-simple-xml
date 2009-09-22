@@ -5,6 +5,9 @@ unit pseudoXML;
 //TODO: figure out a way to thoroughly test this.
 //TODO: support for comment tags
 
+
+//test adding a comment to test SVN diff
+
 interface
 
 uses Classes;
