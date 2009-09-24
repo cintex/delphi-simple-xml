@@ -1,7 +1,6 @@
 unit pseudoXML;
 
 //TODO: support for CDATA markers
-//TODO: potential problems with names that have a dot in them
 //TODO: figure out a way to thoroughly test this.
 //TODO: support for comment tags
 
@@ -30,6 +29,8 @@ type TPseudoXMLNode = class
     procedure escape( var s : String );
     procedure unEscape( var s : String );
     function  recursiveToString(lineIndent:String=''):String;
+    procedure removeComments( var text : string );
+    procedure setFromCommentlessString(text : String);
   public
     tagName     : String;
     constructor create;
@@ -381,7 +382,7 @@ begin
     list.Add(
               TPseudoXMLNode.create
             );
-    TPseudoXMLNode( list.Last ).setFromString(tagText);
+    TPseudoXMLNode( list.Last ).setFromCommentlessString(tagText);
 
     tagText := extractFirstTag(text);
   end;
@@ -447,6 +448,41 @@ begin
   end;
 
 end;
+
+procedure TPseudoXMLNode.removeComments(var text: string);
+var
+ temp : string;
+ ct : integer;
+ commentDepth : integer;
+begin
+  //comment depth keeps track of number of comments that have started.
+  //we are not out of a comment until we reach the same number of comment
+  //ends.  this is a way to handle comments within comments.
+  commentDepth := 0;
+  for ct := 1 to length(text) do
+  begin
+    if commentDepth = 0 then
+    begin
+      if copy(text,ct,4) = '<!--' then
+      begin
+        inc(commentDepth)
+      end
+      else
+      begin
+        temp := temp + text[ct];
+      end;
+    end
+    else
+    begin
+      if copy(text,ct-2,3) = '-->' then
+      begin
+        dec(commentDepth)
+      end
+    end;
+  end;
+  text := temp;
+end;
+
 //------------------------------------------------------------------------------
 //------------------------------------------------------------------------------
 procedure TPseudoXMLNode.SaveToFile(fileName: String);
@@ -469,7 +505,7 @@ begin
   FAttributes.values[name] := value;
 end;
 
-procedure TPseudoXMLNode.setFromString(text: String);
+procedure TPseudoXMLNode.setFromCommentlessString(text: String);
 var i : integer;
 var node : TPseudoXMLNode;
 begin
@@ -493,6 +529,18 @@ begin
     FChildren := TList.create;
     unescape(FValue);
   end;
+end;
+
+procedure TPseudoXMLNode.setFromString(text: String);
+var i : integer;
+var node : TPseudoXMLNode;
+begin
+
+  //remove comments
+  removeComments(text);
+
+  //
+  setFromCommentlessString(text);
 
 end;
 
