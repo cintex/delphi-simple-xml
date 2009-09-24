@@ -1,8 +1,14 @@
 unit pseudoXML;
 
 //TODO: support for CDATA markers
+//A CDATA section starts with "<![CDATA[" and ends with "]]>"
+
 //TODO: figure out a way to thoroughly test this.
-//TODO: support for comment tags
+
+//ignore these sort of tags:
+//<?xml version="1.0" encoding="ISO-8859-1"?>
+//<!DOCTYPE note SYSTEM "Note.dtd">
+
 
 interface
 
